@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+# 🌍 Wildfire Tracker (GPU-Accelerated with deck.gl)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a **React-based web application** that visualizes real-time wildfire data from [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/) using **deck.gl** and **WebGL**-accelerated rendering.
 
-## Available Scripts
+It leverages modern geospatial rendering tools and GPU acceleration to smoothly handle large-scale GeoJSON datasets (100k+ features) that would otherwise bog down traditional JavaScript rendering.
 
-In the project directory, you can run:
+## 🔥 How It Works
 
-### `npm start`
+- **deck.gl** is a powerful WebGL framework that renders layers like points and tiles directly to the GPU, bypassing DOM bottlenecks and achieving high performance.
+- **GeoJsonLayer** is used to visualize wildfire points from a large `.geojson` file, sized by fire radiative power (FRP).
+- **TileLayer** + **BitmapLayer** render **OpenStreetMap raster tiles** as a lightweight open-source base map.
+- **React** manages state and reactivity, fetching updated wildfire data at regular intervals.
+- Designed to be scalable and performant on modern browsers even with **100,000+ active fire detections**.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🧱 Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- `React` – UI rendering
+- `deck.gl` – GPU-powered visualization layers
+- `@deck.gl/geo-layers`, `@deck.gl/layers` – for tile and geojson support
+- `OpenStreetMap` – raster tile base map
+- `NASA FIRMS` – wildfire GeoJSON data source
 
-### `npm test`
+## 🚀 Quick Start
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1. Clone and install dependencies
 
-### `npm run build`
+```bash
+    git clone https://github.com/yourusername/wildfire-tracker.git
+    cd wildfire-tracker
+    npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 2. Add wildfire data
+Place your wildfires.geojson file inside the public/data/ directory:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```aiignore
+public/
+└── data/
+    └── wildfires.geojson
+```
 
-### `npm run eject`
+You can download current fire data from NASA's FIRMS portal.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 3. Start the app
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+    npm start
+```
+Runs the app in development mode. Open http://localhost:3000 in your browser.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📦 Built With Create React App
+All the original CRA scripts are still available:
 
-## Learn More
+`npm start` – Development server
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`npm run build` – Production build
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+`npm test` – Run tests
 
-### Code Splitting
+`npm run eject` – Eject CRA config (optional)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 📚 Learn More
 
-### Analyzing the Bundle Size
+- [deck.gl documentation](https://deck.gl)
+- [NASA FIRMS Data](https://firms.modaps.eosdis.nasa.gov/)
+- [OpenStreetMap tile usage policy](https://operations.osmfoundation.org/policies/tiles/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+## 🧠 Why deck.gl?
+Traditional libraries like Leaflet or D3 struggle with tens of thousands of features in the browser. By using deck.gl’s GPU-powered rendering pipeline, we bypass canvas/DOM performance limits and render huge datasets smoothly, even during zooming and panning.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## ⚠️ Notes
+The app assumes the wildfire GeoJSON is already projected in WGS84 (lat/lon).
 
-### Advanced Configuration
+For heavy usage or deployments, consider hosting tiles on your own tile server to avoid rate limiting.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
